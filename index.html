@@ -1120,15 +1120,45 @@ function openModal(base64Str) {
     if(mi<msgs.length && pct>(mi+1)*18){ document.getElementById('m-prog-txt').textContent=msgs[mi]; mi++; }
   }, 250);
 
-  const finish = (url) => {
-    clearInterval(iv);
-    document.getElementById('m-fill').style.width='100%';
-    document.getElementById('m-pct').textContent='100%';
-    document.getElementById('m-prog-txt').textContent='Done!';
-    document.getElementById('m-done').style.display='block';
-    if(url){ const a=document.createElement('a'); a.href=url; a.download=(d.title||'subtitle')+'.srt'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
-    showToast('✅ Download started!');
-  };
+  const finish = async (url) => {
+  clearInterval(iv);
+  document.getElementById('m-fill').style.width = '100%';
+  document.getElementById('m-pct').textContent = '100%';
+  document.getElementById('m-prog-txt').textContent = 'Done!';
+  document.getElementById('m-done').style.display = 'block';
+  
+  if (url) {
+    try {
+      // Use a public CORS proxy to safely bypass the browser's security block
+      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+      
+      const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error('Proxy failed');
+      
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
+      // Generate a safe, clean file name from the movie title
+      const safeName = (d.title || 'subtitle').trim().replace(/[^a-zA-Z0-9]/g, '_') + '.srt';
+      
+      const a = document.createElement('a'); 
+      a.href = blobUrl; 
+      a.download = safeName; 
+      document.body.appendChild(a); 
+      a.click(); 
+      document.body.removeChild(a);
+      
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (e) {
+      // Fallback: If the proxy fails, open it in a new tab so they can right-click and save
+      window.open(url, '_blank');
+      showToast('⚠️ Clicked failed? Right-click page and choose "Save As"');
+      return;
+    }
+  }
+  showToast('✅ Download started!');
+};
+
 
   if(d.fileId) {
     apiPost('/download',{file_id:d.fileId})
