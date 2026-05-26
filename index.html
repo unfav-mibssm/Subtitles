@@ -998,7 +998,7 @@ function cardHtml(item, idx) {
     rating>0 ? `<span class="pill pill-gray">${'★'.repeat(Math.round(Math.min(5,rating)))}</span>` : ''
   ].filter(Boolean).join('');
 
-  const payload = JSON.stringify({title,year,lang:langLbl,release,downloads:dlCount,uploader,fileId:fid});
+  const payload = btoa(unescape(encodeURIComponent(JSON.stringify({title,year,lang:langLbl,release,downloads:dlCount,uploader,fileId:fid}))));
 
   return `
   <div class="sub-card" style="animation-delay:${idx*0.05}s">
@@ -1028,7 +1028,7 @@ function cardHtml(item, idx) {
       ${a.fps?`<div class="meta-stat"><div class="meta-stat-label">FPS</div><div class="meta-stat-val">${a.fps}</div></div>`:''}
     </div>
     <div class="sub-card-footer">
-      <button class="dl-btn" onclick="openModal(${esc2(payload)})">
+      <button class="dl-btn" onclick="openModal('${payload}')">
         <i class="fa-solid fa-download"></i> Download
       </button>
       <div class="sub-uploader"><i class="fa-regular fa-user" style="margin-right:3px;"></i>${esc(uploader.substring(0,20))}</div>
@@ -1096,8 +1096,8 @@ function pageRange(c,t){
 }
 
 // ── MODAL ────────────────────────────────────────────────────
-function openModal(json) {
-  const d = (() => { try { return JSON.parse(json); } catch { return {}; } })();
+function openModal(base64Str) {
+  const d = (() => { try { return JSON.parse(decodeURIComponent(escape(atob(base64Str)))); } catch { return {}; } })();
   document.getElementById('m-title').textContent    = d.title    ||'—';
   document.getElementById('m-year').textContent     = d.year     ||'—';
   document.getElementById('m-lang').textContent     = d.lang     ||'—';
