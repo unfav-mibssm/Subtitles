@@ -37,12 +37,10 @@ body {
   padding-bottom: 90px;
 }
 
-/* scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 2px; }
 
-/* ── TOP NAV ── */
 #topnav {
   background: var(--bg);
   padding: 16px 20px 14px;
@@ -72,10 +70,8 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* ── PAGE BODY ── */
 .page { padding: 20px 16px; }
 
-/* ── SECTION LABEL ── */
 .sect-label {
   font-size: 11px;
   font-weight: 800;
@@ -86,7 +82,6 @@ body {
   padding-left: 2px;
 }
 
-/* ── CARD BASE ── */
 .card {
   border: var(--border);
   border-radius: var(--radius);
@@ -98,7 +93,6 @@ body {
 .card-lime { background: var(--lime); }
 .card-bg   { background: var(--bg2); }
 
-/* ── SEARCH CARD ── */
 .search-card {
   border: var(--border);
   border-radius: var(--radius);
@@ -164,7 +158,6 @@ body {
 }
 .search-btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
 
-/* ── LANGUAGE FILTER ── */
 .lang-filter-card {
   border: var(--border);
   border-radius: var(--radius);
@@ -210,7 +203,6 @@ body {
   box-shadow: 2px 2px 0 var(--ink);
 }
 
-/* ── TRENDING ── */
 .trending-card {
   border: var(--border);
   border-radius: var(--radius);
@@ -244,7 +236,6 @@ body {
 .tchip:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--ink); }
 .tchip:hover { background: var(--lime); }
 
-/* ── RESULTS ── */
 #results-section { display: none; }
 .results-header-card {
   border: var(--border);
@@ -275,7 +266,6 @@ body {
   margin-top: 2px;
 }
 
-/* ── SUBTITLE CARD ── */
 .sub-card {
   border: var(--border);
   border-radius: var(--radius);
@@ -335,7 +325,6 @@ body {
 .lang-hi  { background: #ffd7b5; color: var(--ink); }
 .lang-xx  { background: #e0e0d0; color: var(--ink); }
 
-/* full release name box */
 .sub-release-box {
   background: var(--bg);
   border: 2px solid rgba(26,26,20,0.2);
@@ -360,7 +349,6 @@ body {
   line-height: 1.4;
 }
 
-/* quality pills */
 .sub-pills {
   display: flex;
   gap: 6px;
@@ -442,7 +430,6 @@ body {
   white-space: nowrap;
 }
 
-/* ── SKELETONS ── */
 .skel {
   background: linear-gradient(90deg, var(--bg2) 25%, var(--bg) 50%, var(--bg2) 75%);
   background-size: 300px 100%;
@@ -454,7 +441,6 @@ body {
   100% { background-position: 300px 0; }
 }
 
-/* ── STATS SECTION ── */
 #stats-section { padding: 6px 16px 20px; }
 .stats-grid {
   display: grid;
@@ -485,7 +471,6 @@ body {
   line-height: 1;
 }
 
-/* ── PAGINATION ── */
 .pag-wrap {
   display: flex;
   align-items: center;
@@ -513,7 +498,6 @@ body {
 .pag-btn.active { background: var(--lime); }
 .pag-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-/* ── EMPTY / ERROR ── */
 .empty-card {
   border: var(--border);
   border-radius: var(--radius);
@@ -537,7 +521,6 @@ body {
   display: flex; gap: 10px; align-items: flex-start;
 }
 
-/* ── DOWNLOAD MODAL ── */
 #modal-bg {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(26,26,20,0.6);
@@ -674,7 +657,6 @@ body {
 .done-title { font-size: 20px; font-weight: 900; }
 .done-sub   { font-size: 13px; color: var(--ink2); margin-top: 4px; }
 
-/* ── BOTTOM NAV ── */
 #bottom-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 480px;
@@ -703,7 +685,6 @@ body {
 }
 .bnav-label { font-size: 10px; font-weight: 700; }
 
-/* ── TOAST ── */
 #toast {
   position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(60px);
   background: var(--ink); color: #fff;
@@ -887,6 +868,9 @@ const TOKENS = [
 let tkIdx = 0;
 const BASE = 'https://api.opensubtitles.com/api/v1';
 const UA   = 'MibSubtitles v1.0';
+
+// ── BRANDING SUFFIX ─────────────────────────────────────────
+const FILE_SUFFIX = '_MibSubtitles';
 
 function tk() { return TOKENS[tkIdx]; }
 function rotateTk() { tkIdx = (tkIdx+1) % TOKENS.length; }
@@ -1120,45 +1104,57 @@ function openModal(base64Str) {
     if(mi<msgs.length && pct>(mi+1)*18){ document.getElementById('m-prog-txt').textContent=msgs[mi]; mi++; }
   }, 250);
 
+  // ── FIX 1: Force octet-stream so browser saves instead of displaying
+  // ── FIX 2: Append _MibSubtitles suffix to filename
   const finish = async (url) => {
-  clearInterval(iv);
-  document.getElementById('m-fill').style.width = '100%';
-  document.getElementById('m-pct').textContent = '100%';
-  document.getElementById('m-prog-txt').textContent = 'Done!';
-  document.getElementById('m-done').style.display = 'block';
-  
-  if (url) {
-    try {
-      // Use a public CORS proxy to safely bypass the browser's security block
-      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-      
-      const response = await fetch(proxyUrl);
-      if (!response.ok) throw new Error('Proxy failed');
-      
-      const blob = await response.blob();
-      const blobUrl = window.URL.createObjectURL(blob);
-      
-      // Generate a safe, clean file name from the movie title
-      const safeName = (d.title || 'subtitle').trim().replace(/[^a-zA-Z0-9]/g, '_') + '.srt';
-      
-      const a = document.createElement('a'); 
-      a.href = blobUrl; 
-      a.download = safeName; 
-      document.body.appendChild(a); 
-      a.click(); 
-      document.body.removeChild(a);
-      
-      window.URL.revokeObjectURL(blobUrl);
-    } catch (e) {
-      // Fallback: If the proxy fails, open it in a new tab so they can right-click and save
-      window.open(url, '_blank');
-      showToast('⚠️ Clicked failed? Right-click page and choose "Save As"');
-      return;
-    }
-  }
-  showToast('✅ Download started!');
-};
+    clearInterval(iv);
+    document.getElementById('m-fill').style.width = '100%';
+    document.getElementById('m-pct').textContent = '100%';
+    document.getElementById('m-prog-txt').textContent = 'Done!';
+    document.getElementById('m-done').style.display = 'block';
 
+    if (url) {
+      try {
+        // Proxy to bypass CORS
+        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error('Proxy failed');
+
+        const rawText = await response.text();
+
+        // Force application/octet-stream — this is the key fix.
+        // Without it, browsers (especially mobile Safari/Chrome) detect
+        // "text/plain" and open the file inline instead of downloading it.
+        const blob = new Blob([rawText], { type: 'application/octet-stream' });
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        // Build filename: clean title + _MibSubtitles suffix
+        const safeName = (d.title || 'subtitle')
+          .trim()
+          .replace(/[^a-zA-Z0-9]/g, '_')
+          .replace(/_+/g, '_')           // collapse multiple underscores
+          .replace(/^_|_$/g, '')         // trim leading/trailing underscores
+          + FILE_SUFFIX + '.srt';
+
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = safeName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(blobUrl);
+
+        showToast('✅ Saved as ' + safeName);
+      } catch (e) {
+        // Fallback for browsers that block blob downloads (e.g. iOS Safari)
+        window.open(url, '_blank');
+        showToast('⚠️ Tap & hold the page → "Download Linked File"');
+        return;
+      }
+    } else {
+      showToast('✅ Download started!');
+    }
+  };
 
   if(d.fileId) {
     apiPost('/download',{file_id:d.fileId})
@@ -1168,6 +1164,7 @@ function openModal(base64Str) {
     setTimeout(()=>finish(null), 2600);
   }
 }
+
 function closeModal() { document.getElementById('modal-bg').classList.remove('show'); }
 document.getElementById('modal-bg').addEventListener('click',e=>{ if(e.target===document.getElementById('modal-bg')) closeModal(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
@@ -1191,10 +1188,6 @@ function scrollToStats()   { document.getElementById('stats-section').scrollInto
 function esc(s) {
   if(s==null) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function esc2(s) {
-  // for onclick attribute value (single-quoted context)
-  return ("'"+String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")+"'");
 }
 function fmtN(n) {
   if(!n) return '0';
