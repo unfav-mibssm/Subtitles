@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>MibSubtitles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* === EXACT GRASS.IO STYLE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #e8e4d8;
+  --bg2: #dedad0;
+  --white: #ffffff;
+  --lime: #c5f135;
+  --lime2: #b8e82a;
+  --ink: #1a1a14;
+  --ink2: #2a2a20;
+  --muted: #666655;
+  --border: 3px solid #1a1a14;
+  --shadow: 5px 5px 0px #1a1a14;
+  --shadow-sm: 3px 3px 0px #1a1a14;
+  --radius: 18px;
+}
+
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--ink); border-radius: 2px; }
+
+/* ── TOP NAV ── */
+#topnav {
+  background: var(--bg);
+  padding: 16px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(26,26,20,0.15);
+  position: sticky; top: 0; z-index: 50;
+}
+.logo {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+.logo span {
+  display: inline-block;
+  background: var(--lime);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+  vertical-align: middle;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── PAGE BODY ── */
+.page { padding: 20px 16px; }
+
+/* ── SECTION LABEL ── */
+.sect-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+/* ── CARD BASE ── */
+.card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: var(--white);
+}
+.card-lime { background: var(--lime); }
+.card-bg   { background: var(--bg2); }
+
+/* ── SEARCH CARD ── */
+.search-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.search-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.search-input-wrap {
+  position: relative;
+  margin-bottom: 10px;
+}
+.search-input-wrap i {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 15px;
+}
+.search-input-wrap input {
+  width: 100%;
+  padding: 13px 14px 13px 42px;
+  border: var(--border);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--bg);
+  outline: none;
+  transition: box-shadow 0.15s;
+}
+.search-input-wrap input:focus {
+  box-shadow: 0 0 0 3px rgba(197,241,53,0.5);
+  border-color: var(--ink);
+}
+.search-input-wrap input::placeholder { color: var(--muted); }
+
+.search-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--lime);
+  border: var(--border);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.search-btn:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--ink); }
+
+/* ── LANGUAGE FILTER ── */
+.lang-filter-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.lang-filter-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.lang-filter-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+.lang-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.lchip {
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 2px 2px 0 var(--ink);
+  white-space: nowrap;
+}
+.lchip:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--ink); }
+.lchip.active {
+  background: var(--lime);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ── TRENDING ── */
+.trending-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.trend-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.trend-scroll::-webkit-scrollbar { display: none; }
+.tchip {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.1s;
+  display: flex; align-items: center; gap: 6px;
+}
+.tchip:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--ink); }
+.tchip:hover { background: var(--lime); }
+
+/* ── RESULTS ── */
+#results-section { display: none; }
+.results-header-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--lime);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+.results-header-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink2);
+  margin-bottom: 2px;
+}
+.results-header-query {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+.results-header-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  margin-top: 2px;
+}
+
+/* ── SUBTITLE CARD ── */
+.sub-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  margin-bottom: 12px;
+  overflow: hidden;
+  animation: slideUp 0.25s ease both;
+}
+@keyframes slideUp {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.sub-card-head {
+  padding: 14px 16px 10px;
+}
+.sub-card-toprow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.sub-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.25;
+  flex: 1;
+}
+.sub-card-year {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.sub-lang-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.lang-en  { background: #c5f135; color: var(--ink); }
+.lang-ar  { background: #ffd166; color: var(--ink); }
+.lang-ml  { background: #a8edca; color: var(--ink); }
+.lang-ja  { background: #ffb3c1; color: var(--ink); }
+.lang-ko  { background: #b8d4ff; color: var(--ink); }
+.lang-es  { background: #ffc87a; color: var(--ink); }
+.lang-fr  { background: #d4b8ff; color: var(--ink); }
+.lang-pt  { background: #a0e4a0; color: var(--ink); }
+.lang-de  { background: #e8d0a0; color: var(--ink); }
+.lang-hi  { background: #ffd7b5; color: var(--ink); }
+.lang-xx  { background: #e0e0d0; color: var(--ink); }
+
+/* full release name box */
+.sub-release-box {
+  background: var(--bg);
+  border: 2px solid rgba(26,26,20,0.2);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+.sub-release-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.sub-release-name {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* quality pills */
+.sub-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.pill {
+  padding: 3px 9px;
+  border: 1.5px solid var(--ink);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.pill-dark { background: var(--ink); color: #fff; }
+.pill-lime { background: var(--lime); color: var(--ink); }
+.pill-gray { background: var(--bg2); color: var(--ink2); }
+
+.sub-card-meta {
+  display: flex;
+  gap: 14px;
+  padding: 8px 16px;
+  border-top: 2px solid var(--bg2);
+  border-bottom: 2px solid var(--bg2);
+}
+.meta-stat {
+  display: flex;
+  flex-direction: column;
+}
+.meta-stat-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.meta-stat-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.sub-card-footer {
+  padding: 12px 16px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dl-btn {
+  flex: 1;
+  padding: 11px 16px;
+  background: var(--lime);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.dl-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.sub-uploader {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: right;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── SKELETONS ── */
+.skel {
+  background: linear-gradient(90deg, var(--bg2) 25%, var(--bg) 50%, var(--bg2) 75%);
+  background-size: 300px 100%;
+  animation: skel 1.3s infinite;
+  border-radius: 6px;
+}
+@keyframes skel {
+  0%   { background-position: -300px 0; }
+  100% { background-position: 300px 0; }
+}
+
+/* ── STATS SECTION ── */
+#stats-section { padding: 6px 16px 20px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.stat-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+  background: var(--white);
+}
+.stat-card:first-child { background: var(--lime); }
+.stat-card-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink2);
+  margin-bottom: 6px;
+}
+.stat-card-val {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+/* ── PAGINATION ── */
+.pag-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0 8px;
+}
+.pag-btn {
+  min-width: 38px; height: 38px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.1s;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 12px;
+}
+.pag-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+.pag-btn.active { background: var(--lime); }
+.pag-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ── EMPTY / ERROR ── */
+.empty-card {
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--white);
+  padding: 40px 20px;
+  text-align: center;
+}
+.empty-icon { font-size: 36px; margin-bottom: 10px; }
+.empty-title { font-size: 18px; font-weight: 900; margin-bottom: 6px; }
+.empty-sub { font-size: 13px; color: var(--muted); }
+.error-card {
+  border: 3px solid #d93030;
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 #d93030;
+  background: #fff5f5;
+  padding: 16px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #b00;
+  display: flex; gap: 10px; align-items: flex-start;
+}
+
+/* ── DOWNLOAD MODAL ── */
+#modal-bg {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(26,26,20,0.6);
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+#modal-bg.show { opacity: 1; pointer-events: all; }
+#modal-sheet {
+  background: var(--bg);
+  border: var(--border);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -6px 0 var(--ink);
+  width: 100%; max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.34,1.2,0.64,1);
+  padding-bottom: 32px;
+}
+#modal-bg.show #modal-sheet { transform: translateY(0); }
+
+.modal-handle {
+  width: 40px; height: 4px; background: var(--ink);
+  border-radius: 2px; margin: 14px auto 0;
+}
+.modal-head {
+  background: var(--lime);
+  border-bottom: var(--border);
+  padding: 16px 18px;
+  margin: 14px 16px 0;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-head-title {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--ink2); margin-bottom: 2px;
+}
+.modal-head-name {
+  font-size: 17px; font-weight: 900; color: var(--ink);
+}
+.modal-close-btn {
+  width: 34px; height: 34px;
+  border: 2px solid var(--ink); border-radius: 10px;
+  background: var(--white); cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.modal-close-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); }
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px 16px 0;
+}
+.modal-stat {
+  border: var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  padding: 12px 14px;
+  background: var(--white);
+}
+.modal-stat-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); margin-bottom: 3px;
+}
+.modal-stat-val {
+  font-size: 15px; font-weight: 800; color: var(--ink);
+  word-break: break-word;
+}
+.modal-release-box {
+  margin: 10px 16px 0;
+  border: var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  padding: 12px 14px;
+  background: var(--white);
+}
+.modal-release-label {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); margin-bottom: 4px;
+}
+.modal-release-val {
+  font-family: 'Courier New', monospace;
+  font-size: 12px; font-weight: 600; color: var(--ink2);
+  word-break: break-all; line-height: 1.5;
+}
+
+.progress-section { padding: 14px 16px 0; }
+.prog-label-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.prog-label { font-size: 12px; font-weight: 700; color: var(--ink2); }
+.prog-pct   { font-size: 14px; font-weight: 900; color: var(--ink); }
+.prog-track {
+  height: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg2);
+  box-shadow: var(--shadow-sm);
+}
+.prog-fill {
+  height: 100%; width: 0%; background: var(--lime);
+  border-right: 2px solid var(--ink);
+  transition: width 0.15s linear;
+  position: relative;
+}
+.prog-fill::after {
+  content:''; position:absolute; top:0; right:0; bottom:0; width:30px;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,0.5));
+  animation: shine 0.7s linear infinite;
+}
+@keyframes shine {
+  0%{transform:translateX(-200%)} 100%{transform:translateX(200%)}
+}
+.modal-done-card {
+  display: none;
+  margin: 14px 16px 0;
+  border: var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  background: var(--lime);
+  padding: 20px;
+  text-align: center;
+}
+.done-icon { font-size: 32px; margin-bottom: 6px; }
+.done-title { font-size: 20px; font-weight: 900; }
+.done-sub   { font-size: 13px; color: var(--ink2); margin-top: 4px; }
+
+/* ── BOTTOM NAV ── */
+#bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: var(--white);
+  border-top: var(--border);
+  display: flex; align-items: center; justify-content: space-around;
+  padding: 10px 0 14px;
+  z-index: 100;
+}
+.bnav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  flex: 1; cursor: pointer; text-decoration: none; color: var(--muted);
+  transition: color 0.1s;
+}
+.bnav-item.active { color: var(--ink); }
+.bnav-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px; font-size: 18px;
+  transition: all 0.1s;
+}
+.bnav-item.active .bnav-icon {
+  background: var(--lime);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+.bnav-label { font-size: 10px; font-weight: 700; }
+
+/* ── TOAST ── */
+#toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(60px);
+  background: var(--ink); color: #fff;
+  border: 2px solid var(--bg); border-radius: 50px;
+  padding: 10px 20px; font-size: 13px; font-weight: 700;
+  z-index: 300; pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.34,1.4,0.64,1);
+  white-space: nowrap;
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div id="topnav">
+  <div class="logo">MibSubtitles <span>BETA</span></div>
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Find Subtitles</div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div class="page">
+
+  <!-- SEARCH CARD -->
+  <div class="search-card">
+    <div class="search-label">
+      <i class="fa-solid fa-magnifying-glass" style="margin-right:5px;"></i>
+      Search Subtitles
+    </div>
+    <div class="search-input-wrap">
+      <i class="fa-solid fa-film"></i>
+      <input type="text" id="q" placeholder="Movie or TV show name…" autocomplete="off" spellcheck="false"/>
+    </div>
+    <button class="search-btn" onclick="doSearch()">
+      <i class="fa-solid fa-search"></i> Search
+    </button>
+  </div>
+
+  <!-- LANGUAGE FILTER CARD -->
+  <div class="lang-filter-card">
+    <div class="lang-filter-top">
+      <div class="lang-filter-label" style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);">
+        <i class="fa-solid fa-language" style="margin-right:5px;"></i> Filter by Language
+      </div>
+    </div>
+    <div class="lang-chips-wrap" id="lang-chips">
+      <div class="lchip active" data-lang="">All</div>
+      <div class="lchip" data-lang="en">English</div>
+      <div class="lchip" data-lang="ar">Arabic</div>
+      <div class="lchip" data-lang="ml">Malayalam</div>
+      <div class="lchip" data-lang="ja">Japanese</div>
+      <div class="lchip" data-lang="ko">Korean</div>
+      <div class="lchip" data-lang="es">Spanish</div>
+      <div class="lchip" data-lang="fr">French</div>
+      <div class="lchip" data-lang="pt">Portuguese</div>
+      <div class="lchip" data-lang="de">German</div>
+      <div class="lchip" data-lang="hi">Hindi</div>
+      <div class="lchip" data-lang="zh-hans">Chinese</div>
+      <div class="lchip" data-lang="it">Italian</div>
+      <div class="lchip" data-lang="ru">Russian</div>
+      <div class="lchip" data-lang="tr">Turkish</div>
+    </div>
+  </div>
+
+  <!-- TRENDING CARD -->
+  <div class="trending-card">
+    <div class="sect-label"><i class="fa-solid fa-fire" style="margin-right:5px;color:#e84040;"></i>Trending</div>
+    <div class="trend-scroll">
+      <div class="tchip" onclick="setSearch('Interstellar')">🚀 Interstellar</div>
+      <div class="tchip" onclick="setSearch('Breaking Bad')">🧪 Breaking Bad</div>
+      <div class="tchip" onclick="setSearch('Oppenheimer')">⚛️ Oppenheimer</div>
+      <div class="tchip" onclick="setSearch('The Batman')">🦇 The Batman</div>
+      <div class="tchip" onclick="setSearch('Naruto')">🍥 Naruto</div>
+      <div class="tchip" onclick="setSearch('Attack on Titan')">⚔️ Attack on Titan</div>
+      <div class="tchip" onclick="setSearch('Dune')">🏜️ Dune</div>
+      <div class="tchip" onclick="setSearch('The Last of Us')">🍄 The Last of Us</div>
+      <div class="tchip" onclick="setSearch('Inception')">🌀 Inception</div>
+      <div class="tchip" onclick="setSearch('Squid Game')">🎮 Squid Game</div>
+      <div class="tchip" onclick="setSearch('Parasite')">🏠 Parasite</div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-section">
+    <div class="results-header-card">
+      <div class="results-header-label">Search Results For</div>
+      <div class="results-header-query" id="rq-title">—</div>
+      <div class="results-header-count" id="rq-count"></div>
+    </div>
+    <div id="results-list"></div>
+    <div id="pag-wrap"></div>
+  </div>
+
+  <!-- STATS -->
+  <div id="stats-section">
+    <div class="sect-label"><i class="fa-solid fa-chart-bar" style="margin-right:5px;"></i>By The Numbers</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-label">Total Subtitles</div>
+        <div class="stat-card-val" id="st1">2M+</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Languages</div>
+        <div class="stat-card-val" id="st2">45</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Daily Downloads</div>
+        <div class="stat-card-val" id="st3">500K+</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Active Users</div>
+        <div class="stat-card-val" id="st4">120K+</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- DOWNLOAD MODAL (bottom sheet) -->
+<div id="modal-bg">
+  <div id="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-title">Downloading Subtitle</div>
+        <div class="modal-head-name" id="m-title">—</div>
+      </div>
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-grid">
+      <div class="modal-stat"><div class="modal-stat-label">Language</div><div class="modal-stat-val" id="m-lang">—</div></div>
+      <div class="modal-stat"><div class="modal-stat-label">Year</div><div class="modal-stat-val" id="m-year">—</div></div>
+      <div class="modal-stat"><div class="modal-stat-label">Downloads</div><div class="modal-stat-val" id="m-dl">—</div></div>
+      <div class="modal-stat"><div class="modal-stat-label">Uploader</div><div class="modal-stat-val" id="m-uploader" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">—</div></div>
+    </div>
+    <div class="modal-release-box">
+      <div class="modal-release-label">Full Release Name</div>
+      <div class="modal-release-val" id="m-release">—</div>
+    </div>
+    <div class="modal-done-card" id="m-done">
+      <div class="done-icon">✅</div>
+      <div class="done-title">Download Started!</div>
+      <div class="done-sub">Your subtitle file is downloading.</div>
+    </div>
+    <div class="progress-section">
+      <div class="prog-label-row">
+        <span class="prog-label" id="m-prog-txt">Initializing…</span>
+        <span class="prog-pct" id="m-pct">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="m-fill"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- BOTTOM NAV -->
+<div id="bottom-nav">
+  <a class="bnav-item active" href="#" onclick="return false">
+    <div class="bnav-icon"><i class="fa-solid fa-house"></i></div>
+    <div class="bnav-label">Home</div>
+  </a>
+  <a class="bnav-item" href="#" onclick="scrollToResults();return false">
+    <div class="bnav-icon"><i class="fa-solid fa-subtitles" style="font-size:17px;"></i></div>
+    <div class="bnav-label">Results</div>
+  </a>
+  <a class="bnav-item" href="#" onclick="scrollToStats();return false">
+    <div class="bnav-icon"><i class="fa-solid fa-chart-bar"></i></div>
+    <div class="bnav-label">Stats</div>
+  </a>
+</div>
+
+<script>
+// ── API CONFIG ──────────────────────────────────────────────
+const TOKENS = [
+  '4NbYjL4N3OWeefReSG8ASWuGAP9pFf8q',
+  '0VBr6Q2FeYsDEf6WyGoD8ZNPRSYnSQl2',
+  'vpl5Ro5rE2ZaMBrxqTZBaoIJ9njPeVq2'
+];
+let tkIdx = 0;
+const BASE = 'https://api.opensubtitles.com/api/v1';
+const UA   = 'MibSubtitles v1.0';
+
+function tk() { return TOKENS[tkIdx]; }
+function rotateTk() { tkIdx = (tkIdx+1) % TOKENS.length; }
+
+async function apiGet(path, retry=0) {
+  const r = await fetch(BASE+path, { headers: {'Api-Key':tk(),'Content-Type':'application/json','X-User-Agent':UA} });
+  if ((r.status===429||r.status===403) && retry < TOKENS.length-1) { rotateTk(); return apiGet(path, retry+1); }
+  if (!r.ok) throw Object.assign(new Error('API '+r.status), {status:r.status});
+  return r.json();
+}
+async function apiPost(path, body, retry=0) {
+  const r = await fetch(BASE+path, { method:'POST', headers: {'Api-Key':tk(),'Content-Type':'application/json','X-User-Agent':UA}, body:JSON.stringify(body) });
+  if ((r.status===429||r.status===403) && retry < TOKENS.length-1) { rotateTk(); return apiPost(path, body, retry+1); }
+  if (!r.ok) throw new Error('API '+r.status);
+  return r.json();
+}
+
+// ── STATE ───────────────────────────────────────────────────
+let S = { query:'', lang:'', page:1, total:0, totalPages:1, busy:false };
+
+// ── LANG FILTER ─────────────────────────────────────────────
+let activeLang = '';
+document.getElementById('lang-chips').addEventListener('click', e => {
+  const c = e.target.closest('.lchip');
+  if (!c) return;
+  document.querySelectorAll('.lchip').forEach(x=>x.classList.remove('active'));
+  c.classList.add('active');
+  activeLang = c.dataset.lang || '';
+  if (S.query) { S.page=1; doSearch(); }
+});
+
+// ── SEARCH ──────────────────────────────────────────────────
+document.getElementById('q').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+function setSearch(title) {
+  document.getElementById('q').value = title;
+  S.page = 1;
+  doSearch();
+}
+
+async function doSearch(page) {
+  const q = document.getElementById('q').value.trim();
+  if (!q) { shakeInput(); return; }
+  if (S.busy) return;
+  S.busy  = true;
+  S.query = q;
+  S.lang  = activeLang;
+  S.page  = page || 1;
+
+  const sec   = document.getElementById('results-section');
+  const list  = document.getElementById('results-list');
+  const pag   = document.getElementById('pag-wrap');
+  const rqt   = document.getElementById('rq-title');
+  const rqc   = document.getElementById('rq-count');
+
+  sec.style.display = 'block';
+  rqt.textContent = q;
+  rqc.textContent = '';
+  list.innerHTML  = skeletons();
+  pag.innerHTML   = '';
+
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}), 100);
+
+  try {
+    let qs = `?query=${encodeURIComponent(q)}&page=${S.page}`;
+    if (S.lang) qs += `&languages=${S.lang}`;
+    const data = await apiGet('/subtitles'+qs);
+    S.total      = data.total_count  || 0;
+    S.totalPages = data.total_pages  || 1;
+    rqc.textContent = fmtN(S.total)+' subtitle'+(S.total!==1?'s':'')+' found';
+    if (!data.data?.length) {
+      list.innerHTML = emptyHtml(q);
+    } else {
+      list.innerHTML = data.data.map((it,i)=>cardHtml(it,i)).join('');
+      pag.innerHTML  = pagination(S.page, S.totalPages);
+    }
+  } catch(err) {
+    list.innerHTML = errorHtml(err.status===404?'No subtitles found.':'Could not load subtitles. Try again.');
+  } finally { S.busy=false; }
+}
+
+function goPage(p) { doSearch(p); }
+
+// ── CARD HTML ────────────────────────────────────────────────
+function cardHtml(item, idx) {
+  const a    = item.attributes||{};
+  const fd   = a.feature_details||{};
+  const f0   = (a.files||[])[0];
+  const fid  = f0?.file_id;
+  const fname= f0?.file_name||'';
+
+  const title   = fd.title || fname.replace(/\.[^.]+$/,'').replace(/\./g,' ') || 'Unknown';
+  const year    = fd.year||'';
+  const release = a.release || fname || '';
+  const lang    = a.language||'en';
+  const dlCount = a.download_count||0;
+  const rating  = a.ratings||0;
+  const uploader= a.uploader?.name||'Anonymous';
+
+  const langLbl  = LANG_LABELS[lang.toLowerCase()]||lang.toUpperCase();
+  const langCls  = LANG_CLS[lang.toLowerCase()]||'lang-xx';
+  const quality  = detectQ(release);
+  const source   = detectSrc(release);
+
+  const pillsHtml = [
+    quality ? `<span class="pill pill-dark">${quality}</span>` : '',
+    source  ? `<span class="pill pill-lime">${source}</span>`  : '',
+    `<span class="pill pill-gray">SRT</span>`,
+    rating>0 ? `<span class="pill pill-gray">${'★'.repeat(Math.round(Math.min(5,rating)))}</span>` : ''
+  ].filter(Boolean).join('');
+
+  const payload = JSON.stringify({title,year,lang:langLbl,release,downloads:dlCount,uploader,fileId:fid});
+
+  return `
+  <div class="sub-card" style="animation-delay:${idx*0.05}s">
+    <div class="sub-card-head">
+      <div class="sub-card-toprow">
+        <div>
+          <div class="sub-card-title">${esc(title)} ${year?`<span class="sub-card-year">(${year})</span>`:''}
+          </div>
+        </div>
+        <div class="sub-lang-badge ${langCls}">${esc(langLbl)}</div>
+      </div>
+      <div class="sub-release-box">
+        <div class="sub-release-label">Release Name</div>
+        <div class="sub-release-name">${esc(release||'—')}</div>
+      </div>
+      <div class="sub-pills">${pillsHtml}</div>
+    </div>
+    <div class="sub-card-meta">
+      <div class="meta-stat">
+        <div class="meta-stat-label">Downloads</div>
+        <div class="meta-stat-val">${fmtN(dlCount)}</div>
+      </div>
+      <div class="meta-stat">
+        <div class="meta-stat-label">Format</div>
+        <div class="meta-stat-val">SRT</div>
+      </div>
+      ${a.fps?`<div class="meta-stat"><div class="meta-stat-label">FPS</div><div class="meta-stat-val">${a.fps}</div></div>`:''}
+    </div>
+    <div class="sub-card-footer">
+      <button class="dl-btn" onclick="openModal(${esc2(payload)})">
+        <i class="fa-solid fa-download"></i> Download
+      </button>
+      <div class="sub-uploader"><i class="fa-regular fa-user" style="margin-right:3px;"></i>${esc(uploader.substring(0,20))}</div>
+    </div>
+  </div>`;
+}
+
+function skeletons(n=4) {
+  return Array.from({length:n},(_,i)=>`
+    <div class="sub-card" style="animation-delay:${i*0.05}s">
+      <div class="sub-card-head">
+        <div class="sub-card-toprow">
+          <div class="skel" style="height:20px;width:65%;"></div>
+          <div class="skel" style="height:26px;width:70px;border-radius:8px;"></div>
+        </div>
+        <div class="sub-release-box">
+          <div class="skel" style="height:12px;width:100%;margin-bottom:5px;"></div>
+          <div class="skel" style="height:12px;width:80%;"></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <div class="skel" style="height:22px;width:50px;border-radius:6px;"></div>
+          <div class="skel" style="height:22px;width:70px;border-radius:6px;"></div>
+        </div>
+      </div>
+      <div class="sub-card-meta">
+        <div class="skel" style="height:16px;width:80px;"></div>
+        <div class="skel" style="height:16px;width:50px;"></div>
+      </div>
+      <div class="sub-card-footer">
+        <div class="skel" style="height:40px;flex:1;border-radius:12px;"></div>
+        <div class="skel" style="height:14px;width:80px;"></div>
+      </div>
+    </div>`).join('');
+}
+
+function emptyHtml(q) {
+  return `<div class="empty-card"><div class="empty-icon">🔍</div><div class="empty-title">No Subtitles Found</div><div class="empty-sub">Nothing matched "${esc(q)}".<br>Try a different title or language.</div></div>`;
+}
+function errorHtml(msg) {
+  return `<div class="error-card"><i class="fa-solid fa-triangle-exclamation"></i><span>${esc(msg)}</span></div>`;
+}
+
+// ── PAGINATION ───────────────────────────────────────────────
+function pagination(cur, total) {
+  if (total<=1) return '';
+  const pages = pageRange(cur,total);
+  let h = `<div class="pag-wrap">`;
+  h += `<button class="pag-btn" onclick="goPage(${cur-1})" ${cur===1?'disabled':''}><i class="fa-solid fa-chevron-left"></i></button>`;
+  pages.forEach(p=>{
+    if(p==='…') h+=`<span style="padding:0 4px;font-weight:800;color:var(--muted)">…</span>`;
+    else h+=`<button class="pag-btn${p===cur?' active':''}" onclick="goPage(${p})">${p}</button>`;
+  });
+  h += `<button class="pag-btn" onclick="goPage(${cur+1})" ${cur===total?'disabled':''}><i class="fa-solid fa-chevron-right"></i></button>`;
+  h += `</div>`;
+  return h;
+}
+function pageRange(c,t){
+  if(t<=7) return Array.from({length:t},(_,i)=>i+1);
+  const r=[1];
+  if(c>3) r.push('…');
+  for(let i=Math.max(2,c-1);i<=Math.min(t-1,c+1);i++) r.push(i);
+  if(c<t-2) r.push('…');
+  r.push(t);
+  return r;
+}
+
+// ── MODAL ────────────────────────────────────────────────────
+function openModal(json) {
+  const d = (() => { try { return JSON.parse(json); } catch { return {}; } })();
+  document.getElementById('m-title').textContent    = d.title    ||'—';
+  document.getElementById('m-year').textContent     = d.year     ||'—';
+  document.getElementById('m-lang').textContent     = d.lang     ||'—';
+  document.getElementById('m-dl').textContent       = fmtN(d.downloads||0);
+  document.getElementById('m-uploader').textContent = d.uploader ||'—';
+  document.getElementById('m-release').textContent  = d.release  ||'—';
+  document.getElementById('m-fill').style.width     = '0%';
+  document.getElementById('m-pct').textContent      = '0%';
+  document.getElementById('m-prog-txt').textContent = 'Connecting…';
+  document.getElementById('m-done').style.display   = 'none';
+  document.getElementById('modal-bg').classList.add('show');
+
+  let pct=0, mi=0;
+  const msgs=['Connecting…','Locating subtitle…','Fetching file…','Preparing…','Almost done…'];
+  const iv = setInterval(()=>{
+    pct += Math.random()*10+4;
+    if(pct>=94) pct=94;
+    document.getElementById('m-fill').style.width = pct+'%';
+    document.getElementById('m-pct').textContent  = Math.round(pct)+'%';
+    if(mi<msgs.length && pct>(mi+1)*18){ document.getElementById('m-prog-txt').textContent=msgs[mi]; mi++; }
+  }, 250);
+
+  const finish = (url) => {
+    clearInterval(iv);
+    document.getElementById('m-fill').style.width='100%';
+    document.getElementById('m-pct').textContent='100%';
+    document.getElementById('m-prog-txt').textContent='Done!';
+    document.getElementById('m-done').style.display='block';
+    if(url){ const a=document.createElement('a'); a.href=url; a.download=(d.title||'subtitle')+'.srt'; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    showToast('✅ Download started!');
+  };
+
+  if(d.fileId) {
+    apiPost('/download',{file_id:d.fileId})
+      .then(r=>finish(r.link||null))
+      .catch(()=>finish(null));
+  } else {
+    setTimeout(()=>finish(null), 2600);
+  }
+}
+function closeModal() { document.getElementById('modal-bg').classList.remove('show'); }
+document.getElementById('modal-bg').addEventListener('click',e=>{ if(e.target===document.getElementById('modal-bg')) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+// ── HELPERS ──────────────────────────────────────────────────
+function shakeInput() {
+  const el = document.getElementById('q');
+  el.style.borderColor='#d93030';
+  el.style.boxShadow='0 0 0 3px rgba(217,48,48,0.2)';
+  setTimeout(()=>{ el.style.borderColor=''; el.style.boxShadow=''; },800);
+  showToast('Enter a movie or show name first!');
+}
+function showToast(msg,ms=2800) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),ms);
+}
+function scrollToResults() { document.getElementById('results-section').scrollIntoView({behavior:'smooth'}); }
+function scrollToStats()   { document.getElementById('stats-section').scrollIntoView({behavior:'smooth'}); }
+
+function esc(s) {
+  if(s==null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function esc2(s) {
+  // for onclick attribute value (single-quoted context)
+  return ("'"+String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")+"'");
+}
+function fmtN(n) {
+  if(!n) return '0';
+  if(n>=1e6) return (n/1e6).toFixed(1)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(1)+'K';
+  return String(n);
+}
+function detectQ(s) {
+  if(!s) return null; const t=s.toLowerCase();
+  if(t.includes('2160')||t.includes('4k')||t.includes('uhd')) return '4K';
+  if(t.includes('1080')) return '1080p';
+  if(t.includes('720'))  return '720p';
+  if(t.includes('480'))  return '480p';
+  return null;
+}
+function detectSrc(s) {
+  if(!s) return null; const t=s.toLowerCase();
+  if(t.includes('bluray')||t.includes('blu-ray')||t.includes('bdrip')||t.includes('brrip')) return 'BluRay';
+  if(t.includes('webrip')||t.includes('web-rip')) return 'WEBRip';
+  if(t.includes('webdl')||t.includes('web-dl'))   return 'WEB-DL';
+  if(t.includes('hdtv')||t.includes('hdrip'))     return 'HDTV';
+  if(t.includes('dvdrip'))  return 'DVDRip';
+  if(t.includes('amzn')||t.includes('amazon'))    return 'Amazon';
+  if(t.includes('nflx')||t.includes('netflix'))   return 'Netflix';
+  if(t.includes('hmax')||t.includes('hbo'))       return 'HBO Max';
+  if(t.includes('dsnp')||t.includes('disney'))    return 'Disney+';
+  return null;
+}
+
+const LANG_LABELS = {
+  en:'English', ar:'Arabic', ml:'Malayalam', ja:'Japanese', ko:'Korean',
+  es:'Spanish', fr:'French', pt:'Portuguese', de:'German', hi:'Hindi',
+  it:'Italian', ru:'Russian', tr:'Turkish', nl:'Dutch', pl:'Polish',
+  sv:'Swedish', fi:'Finnish', da:'Danish', cs:'Czech', hu:'Hungarian',
+  ro:'Romanian', 'zh-hans':'Chinese','zh-hant':'Chinese TW',
+  th:'Thai', vi:'Vietnamese', id:'Indonesian', uk:'Ukrainian', bg:'Bulgarian',
+};
+const LANG_CLS = {
+  en:'lang-en', ar:'lang-ar', ml:'lang-ml', ja:'lang-ja', ko:'lang-ko',
+  es:'lang-es', fr:'lang-fr', pt:'lang-pt', de:'lang-de', hi:'lang-hi',
+};
+</script>
+</body>
+</html>
